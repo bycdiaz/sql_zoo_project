@@ -32,3 +32,30 @@ WHERE coach = 'Fernando Santos';
 
 -- 7. List the player for every goal scored in a game 
 -- where the stadium was 'National Stadium, Warsaw'
+SELECT player
+FROM goal JOIN game ON (matchid=id)
+WHERE stadium = 'National Stadium, Warsaw';
+
+-- 8. show the name of all players who scored a goal against Germany.
+
+-- 9. Show teamname and the total number of goals scored.
+SELECT teamname, COUNT(gtime) AS 'Goals'
+FROM eteam JOIN goal on (id=teamid)
+GROUP BY teamname;
+
+-- 10. Show the stadium and the number of goals scored in each stadium.
+SELECT game.stadium, COUNT(game.stadium) FROM game
+INNER JOIN goal ON (game.id=goal.matchid) GROUP BY game.stadium;
+
+-- 11. For every match involving 'POL', show the matchid, date and the number of goals scored.
+SELECT goal.matchid, game.mdate, COUNT(goal.matchid)
+  FROM goal JOIN game ON goal.matchid = game.id 
+ WHERE (team1 = 'POL' OR team2 = 'POL') GROUP BY goal.matchid, game.mdate;
+ 
+-- 12. For every match where 'GER' scored, show matchid, match date 
+-- and the number of goals scored by 'GER'
+SELECT goal.matchid, game.mdate, COUNT(goal.matchid)
+FROM goal INNER JOIN game ON goal.matchid=game.id
+WHERE goal.teamid = 'GER' GROUP BY goal.matchid, game.mdate;
+
+-- 13. List every match with the goals scored by each team as shown.
